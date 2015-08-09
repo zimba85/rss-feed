@@ -1,0 +1,21 @@
+# General
+application.title: "UFC Mania News"
+application.page.title: "Latest UFC News, Results & Rumours - Ultimate Fighting Championship"
+application.page.keywords: "ufc, news, mania, mma, ultimate fighting, championship, result"
+application.message.browser.update: "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your experience."
+
+error.not_found: "Page not found"
+
+menu.home: "Home"
+menu.popular: "Most popular"
+menu.categories: "All categories"
+
+sidebar.categories.title: "Categories"
+sidebar.popular.title: "Most popular"
+
+articles.no-found: "No articles were found"
+
+article.posted-on: "Posted on %date%"
+article.read-more: "Read more"
+
+categories.no-found: "No categories were found"

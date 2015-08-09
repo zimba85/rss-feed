@@ -1,0 +1,52 @@
+{# default Sliding pagination control implementation #}
+
+{% if pageCount > 1 %}
+    <nav class="text-center">
+        <ul class="pagination">
+            {% if first is defined and current != first %}
+                <li class="first">
+                    <a href="{{ path(route, query|merge({(pageParameterName): first})) }}">
+                        <i class="glyphicon glyphicon-fast-backward"></i>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% if previous is defined %}
+                <li class="previous">
+                    <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}">
+                        <i class="glyphicon glyphicon-backward"></i>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% for page in pagesInRange %}
+                {% if page != current %}
+                    <li class="page">
+                        <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+                    </li>
+                {% else %}
+                    <li class="active">
+                        <a>{{ page }}</a>
+                    </li>
+                {% endif %}
+
+            {% endfor %}
+
+            {% if next is defined %}
+                <li class="next">
+                    <a href="{{ path(route, query|merge({(pageParameterName): next})) }}">
+                        <i class="glyphicon glyphicon-forward"></i>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% if last is defined and current != last %}
+                <li class="last">
+                    <a href="{{ path(route, query|merge({(pageParameterName): last})) }}">
+                        <i class="glyphicon glyphicon-fast-forward"></i>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}

@@ -1,0 +1,66 @@
+{% extends 'AppBundle::layouts/layout.html.twig' %}
+
+{% block body %}
+
+    <div id="news-list">
+        {% for article in articles %}
+            <div class="article-box">
+                <h4><a href="{{ path('news', {'alias': article.alias}) }}">{{ article.title }}</a></h4>
+
+                <!-- Views -->
+                <p class="pull-right">
+                    <span class="glyphicon glyphicon-eye-open"></span> {{ article.views }}
+                </p>
+                <!-- Date/Time -->
+                <p class="pull-left">
+                    <span class="glyphicon glyphicon-time"></span> {{ 'article.posted-on'|trans({'%date%': article.date|date('F d, Y h:iA')}) }}
+                </p>
+
+                <div class="clear-both"></div>
+
+                <small>{{ article.feed }}</small>
+
+                <p>
+                    {% if article.description %}
+                        {{ article.description|striptags|slice(0, 500)|raw }}
+                        {% if article.description|striptags|length > 500 %}
+                            ...
+                        {% endif %}
+                    {% else %}
+                        {{ article.content|striptags|slice(0, 500)|raw }}
+                        {% if article.content|striptags|length > 500 %}
+                            ...
+                        {% endif %}
+                    {% endif %}
+                </p>
+
+                <div class="row">
+                    <div class="col-xs-8">
+                        {% if article.categoryAlias is not empty %}
+                            {% set categoryNames = article.categoryName|split(',') %}
+                            {% set categoryAlias = article.categoryAlias|split(',') %}
+                            {% for category in categoryNames %}
+                                <a class="btn btn-xs btn-primary" href="{{ path('category', {'alias': categoryAlias[loop.index0]}) }}">{{ category }}</a>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="col-xs-4">
+                        <p class="text-right">
+                            <a class="btn btn-default" href="{{ path('news', {'alias': article.alias}) }}">
+                                <span class="hidden-xs">{{ 'article.read-more'|trans }}</span> <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
+        {% if articles is empty %}
+            <div class="article-box">
+                <p>{{ 'articles.no-found'|trans }}</p>
+            </div>
+        {% endif %}
+    </div>
+
+    {{ knp_pagination_render(articles) }}
+{% endblock %}

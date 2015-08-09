@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="{{ asset("sitemap.xsl") }}"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    {% for article in articles %}
+        <url>{# check if hostname is not alreay in url#}
+            <loc>http://ufcmania.news/news/{{ article.alias }}</loc>
+            {% if article.insertDate is defined %}
+                <lastmod>{{ article.insertDate|date('Y-m-d') }}</lastmod>
+            {% endif %}
+            <changefreq>monthly</changefreq>
+            <priority>0.5</priority>
+        </url>
+    {% endfor %}
+</urlset>

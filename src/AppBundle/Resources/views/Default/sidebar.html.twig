@@ -1,0 +1,48 @@
+<!-- Blog Sidebar Widgets Column -->
+<div class="hidden-xs hidden-sm col-md-4">
+
+    <!-- Search Well -->
+    <!--div class="well">
+        <h4>Blog Search</h4>
+        <div class="input-group">
+            <input type="text" class="form-control">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+        </div>
+    </div-->
+
+    <!-- Categories Well -->
+    <div class="well">
+        <h4>{{ 'sidebar.categories.title'|trans }}</h4>
+        <div class="row">
+            <div class="col-xs-12">
+                <ul class="list-unstyled">
+                    {% for category in categories %}
+                        <li>
+                            <a href="{{ path('category', {'alias': category.alias}) }}">{{ category.name }} ({{ category.count }})</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+
+    <!-- Most popular Well -->
+    <div class="well">
+        <h4>{{ 'sidebar.popular.title'|trans }}</h4>
+        <div class="row">
+            <div class="col-xs-12">
+                <ul class="list-unstyled">
+                    {% for article in popular %}
+                        <li><a href="{{ path('news', {'alias': article.alias}) }}">{{ article.title }} ({{ article.views }})</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+</div>

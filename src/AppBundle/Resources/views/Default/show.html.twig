@@ -1,0 +1,57 @@
+{% extends 'AppBundle::layouts/layout.html.twig' %}
+
+{% block title %}{{ article.title }} - {{ parent() }}{% endblock %}
+
+{% block keywords %}{{ article.categoryName }}{% endblock %}
+
+{% block body %}
+
+    <div class="article-box">
+        <!-- Title -->
+        <h1>{{ article.title }}</h1>
+
+        <hr>
+
+        <!-- Views -->
+        <p class="pull-right">
+            <span class="glyphicon glyphicon-eye-open"></span> {{ article.views }}
+        </p>
+        <!-- Date/Time -->
+        <p class="pull-left">
+            <span class="glyphicon glyphicon-time"></span> {{ 'article.posted-on'|trans({'%date%': article.date|date('F d, Y h:iA')}) }}
+        </p>
+
+        <div class="clear-both"></div>
+
+        <small>{{ article.feed }}</small>
+
+        <hr>
+
+        {% if article.categoryAlias is not empty %}
+            <p>
+                {% set categoryNames = article.categoryName|split(',') %}
+                {% set categoryAlias = article.categoryAlias|split(',') %}
+                {% for category in categoryNames %}
+                    <a class="btn btn-xs btn-primary" href="{{ path('category', {'alias': categoryAlias[loop.index0]}) }}">{{ category }}</a>
+                {% endfor %}
+            </p>
+        {% endif %}
+
+        <!-- Article Content -->
+        <div id="article-content">
+            {% if article.content %}
+                {{ article.content|replace({'<table>': '<table class="table">'})|raw }}
+            {% else %}
+                {{ article.description|replace({'<table>': '<table class="table">'})|raw }}
+            {% endif %}
+        </div>
+
+        <div class="clear-both"></div>
+
+        <p class="text-right">
+            <a class="btn btn-default" href="{{ article.link }}" target="_blank">
+                <span class="hidden-xs">{{ 'article.read-more'|trans }}</span> <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </p>
+    </div>
+{% endblock %}

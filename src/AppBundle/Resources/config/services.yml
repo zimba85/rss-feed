@@ -1,0 +1,22 @@
+parameters:
+#    parameter_name: value
+
+services:
+    app.command.rss_fetch:
+        class: AppBundle\Command\RssFetch
+        tags:
+            -  { name: console.command }
+    app.command.rss_sitemap:
+        class: AppBundle\Command\RssSitemap
+        tags:
+            -  { name: console.command }
+    app.rss_article:
+        class: AppBundle\Entity\RssArticle
+    app.rss_article_view:
+        class: AppBundle\Entity\RssArticleView
+    app.rss_category:
+        class: AppBundle\Entity\RssCategory
+    app.rss_feed:
+        class: AppBundle\Entity\RssFeed
+    app.rss_log:
+        class: AppBundle\Entity\RssLog
