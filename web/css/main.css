@@ -1,5 +1,4 @@
 body {
-    margin: 20px 0;
     font-size: 13px;
     font-family: 'Open Sans',"Helvetica Neue",Helvetica,Arial,sans-serif;
     color: #575757;
@@ -11,6 +10,12 @@ body {
     background: -ms-radial-gradient(center,ellipse cover,#666 0,#000 100%);
     background: radial-gradient(ellipse at center,#666 0,#000 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#000000', GradientType=1);
+}
+
+@media screen and (min-width: 768px) {
+    body {
+        margin: 20px 0;
+    }
 }
 
 a {
@@ -61,6 +66,23 @@ h1 {
 .navbar-default .navbar-nav > .active > a:hover {
     color: #fefefe;
     background-color: #a60c1b;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: #fefefe;
+}
+
+.navbar-default .navbar-toggle:hover {
+    border-color: #181818;
+    background-color: #c41230;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fefefe;
+}
+
+.navbar-default .navbar-toggle:hover .icon-bar {
+    background-color: #181818;
 }
 
 .article-box {
