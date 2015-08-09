@@ -20,6 +20,8 @@ DirectoryIndex app.php
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    RewriteBase /
+
     # Determine the RewriteBase automatically and set it as environment variable.
     # If you are using Apache aliases to do mass virtual hosting or installed the
     # project in a subdirectory, the base path will be prepended to allow proper
@@ -48,13 +50,19 @@ DirectoryIndex app.php
     RewriteCond %{ENV:REDIRECT_STATUS} ^$
     RewriteRule ^app\.php(/(.*)|$) %{ENV:BASE}/$2 [R=301,L]
 
-    # If the requested filename exists, simply serve it.
-    # We only want to let Apache serve files and not directories.
-    RewriteCond %{REQUEST_FILENAME} -f
-    RewriteRule .? - [L]
+    # disallow other php files
+    RewriteCond %{REQUEST_FILENAME} \.php$
+    RewriteCond %{REQUEST_FILENAME} !/app\.php$
+    RewriteRule ^([^/]+/)*([^/.]+\.)+php$ - [R=404,L]
 
-    # Rewrite all other queries to the front controller.
-    RewriteRule .? %{ENV:BASE}/app.php [L]
+    # redirect to domain without www
+    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+    RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+    # RewriteBase /path/to/app
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ app.php [QSA,L]
 </IfModule>
 
 <IfModule !mod_rewrite.c>

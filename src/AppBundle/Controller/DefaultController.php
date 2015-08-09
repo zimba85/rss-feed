@@ -97,6 +97,9 @@ class DefaultController extends Controller
 
             $repository->incrementViews($article['id']);
 
+            // Increment for current view
+            $article['views']++;
+
             try {
                 $em->flush();
             } catch (\Exception $e) {
@@ -124,5 +127,14 @@ class DefaultController extends Controller
             'categories' => $categories,
             'popular'    => $popular,
         );
+    }
+
+    /**
+     * @Route("/privacy-policy", name="privacy_policy")
+     * @Template()
+     */
+    public function privacyAction()
+    {
+        return array();
     }
 }

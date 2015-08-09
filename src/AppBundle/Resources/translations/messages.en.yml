@@ -19,3 +19,13 @@ article.posted-on: "Posted on %date%"
 article.read-more: "Read more"
 
 categories.no-found: "No categories were found"
+
+footer.privacy: "Privacy policy"
+
+privacy.title: "Privacy policy"
+privacy.subtitle: "*Please read all of this Privacy Policy prior to commencing use of this web site and on each and every occasion that you use this web site in the future to check for updates.*"
+privacy.terms.1: "Your visiting this web site constitutes acceptance of and consent to the practices set out in this Privacy Policy. If you do not agree with any of the terms as set out in this Privacy Policy then you should cease using this web site immediately."
+privacy.terms.2: "We reserve the rights to change this Privacy Policy at any time by posting an updated version on the web site. Your continued use of this site after an updated version is posted constitutes your acceptance of and consent to the practices set out in this Privacy Policy as modified."
+privacy.cookie.title: "Cookies"
+privacy.cookie.1: "Cookies are packets of information sent by our servers to your web browser and then sent back by the browser each time it accesses our servers."
+privacy.cookie.2: "Like many sites, we use \"cookies\" to collect information. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent."

@@ -1,0 +1,24 @@
+{% extends 'AppBundle::layouts/layout.html.twig' %}
+
+{% block body %}
+
+    <div class="article-box">
+        <h4>{{ 'privacy.title'|trans }}</h4>
+        <p>{{ 'privacy.subtitle'|trans }}</p>
+
+        <hr>
+
+        <h5></h5>
+        <p>
+            {{ 'privacy.terms.1'|trans }}<br>
+            {{ 'privacy.terms.2'|trans }}
+        </p>
+
+        <h5>{{ 'privacy.cookie.title'|trans }}</h5>
+        <p>
+            {{ 'privacy.cookie.1'|trans }}<br>
+            {{ 'privacy.cookie.2'|trans }}
+        </p>
+
+    </div>
+{% endblock %}
