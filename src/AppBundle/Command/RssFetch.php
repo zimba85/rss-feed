@@ -105,17 +105,17 @@ class RssFetch extends ContainerAwareCommand
 
                     $pubDate = new \Datetime($articleFeed->pubDate);
 
+                    $articleAlias = $this->generateAlias($articleFeed->title);
+
                     // Check if articles have been already imported
                     $articleDb = $articleRepository->createQueryBuilder('articles')
                                                    ->where('articles.rssFeed = :rss_feed')
-                                                   ->andWhere('articles.title = :title')
+                                                   ->andWhere('articles.alias = :alias')
                                                    ->andWhere('articles.link = :link')
-                                                   ->andWhere('articles.date = :date')
                                                    ->setParameters(array(
                                                        'rss_feed' => $feeds[$i],
-                                                       'title'    => $articleFeed->title,
-                                                       'link'     => $articleFeed->link,
-                                                       'date'     => $pubDate
+                                                       'alias'    => $articleAlias,
+                                                       'link'     => $articleFeed->link
                                                    ))
                                                    ->getQuery()
                                                    ->getScalarResult();
@@ -129,8 +129,8 @@ class RssFetch extends ContainerAwareCommand
 
                     $params = array(
                         'rss_feed_id' => $feeds[$i]->getId(),
-                        'title'       => $articleFeed->title,
-                        'alias'       => $this->generateAlias($articleFeed->title),
+                        'title'       => trim($articleFeed->title),
+                        'alias'       => $articleAlias,
                         'link'        => $articleFeed->link,
                         'date'        => $pubDate->format('Y-m-d H:i:s'),
                         'description' => $articleFeed->description,
@@ -198,17 +198,17 @@ class RssFetch extends ContainerAwareCommand
                     $dbConnection->prepare($updateArticle)->execute($params);
                 }
 
-                $message = $insertCount.' articles inserted';
-
-                $this->track(
-                    $em,
-                    $feeds[$i],
-                    'SUCCESS',
-                    $message,
-                    microtime(true) - $feedTimeStart,
-                    $feedDateStart,
-                    new \Datetime()
-                );
+                if ($insertCount) {
+                    $this->track(
+                        $em,
+                        $feeds[$i],
+                        'SUCCESS',
+                        $insertCount.' articles inserted',
+                        microtime(true) - $feedTimeStart,
+                        $feedDateStart,
+                        new \Datetime()
+                    );
+                }
 
                 $em->flush();
             }
@@ -222,6 +222,7 @@ class RssFetch extends ContainerAwareCommand
             $logger->log(Logger::ERROR, $message);
 
             $this->track(
+                $em,
                 $feeds[$i],
                 'FAILED',
                 $message,
